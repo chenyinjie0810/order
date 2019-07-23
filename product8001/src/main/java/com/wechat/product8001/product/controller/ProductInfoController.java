@@ -26,6 +26,7 @@ public class ProductInfoController {
     public String get(){
         List<ProductInfo> list=productService.findByCategoryType(CategoryType.up.getCode());
         List<Integer> collect = list.stream().map(ProductInfo::getCategoryType).collect(Collectors.toList());
-        return list.toString();
+        return collect.toString();
     }
+
 }
