@@ -94,5 +94,58 @@ public class WehcatController {
     }
 
 
+    /**
+     *
+     * @description: 设置模板行业
+     * @author: chenyj 2019/7/24
+     * @return
+     */
+    @GetMapping("setIndustry")
+    public String setIndustry(){
+        String param="{\n" +
+                "    \"industry_id1\":\"1\",\n" +
+                "    \"industry_id2\":\"4\"\n" +
+                "}";
+       return WeChatUtils.setIndustry(param);
+    }
+
+    /**
+     * 发送消息
+     * @return
+     */
+    @GetMapping("sendMessage")
+    public String sendMessage(){
+        String param="{\n" +
+                "           \"touser\":\"ok-oWwTEdq6eH6gTB-bN_9Ec8uBU\",\n" +
+                "           \"template_id\":\"rTh7soXTQwpuWtlrBkyWQ8ZF3AHixydK3JaDvS4bTmc\",\n" +
+                "           \"url\":\"http://weixin.qq.com/download\",  \n" +
+                "           \"data\":{\n" +
+                "                   \"first\": {\n" +
+                "                       \"value\":\"恭喜你购买成功！\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword1\":{\n" +
+                "                       \"value\":\"巧克力\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword2\": {\n" +
+                "                       \"value\":\"39.8元\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword3\": {\n" +
+                "                       \"value\":\"2014年9月22日\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"remark\":{\n" +
+                "                       \"value\":\"欢迎再次购买！\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   }\n" +
+                "           }\n" +
+                "       }";
+        return WeChatUtils.sendMessage(param);
+    }
+
+
+
 
 }

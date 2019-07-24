@@ -25,6 +25,15 @@ public class WeChatUtils {
     private static final String buttonUrl="https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 
     /**
+     * 设置行业接口
+     */
+    private static final String setIndustryUrl="https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=ACCESS_TOKEN";
+
+    /**
+     * 发送模板消息
+     */
+    private static final String sendMessage="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
+    /**
      * @desc: 对普通信息进行处理
      * @author: chenyj
      * @date: 2019/7/23
@@ -76,6 +85,38 @@ public class WeChatUtils {
         JSONObject jsonObject=new JSONObject(result);
         if (null!=jsonObject&&jsonObject.get("errcode").equals(0)){
             return "修改成功";
+        }else {
+            return jsonObject.getString("errmsg");
+        }
+    }
+
+    /**
+     * @description: 设置模板行业
+     * @author: chenyj 2019/7/24
+     * @param param
+     * @return
+     */
+    public static String setIndustry(String param){
+        String result=HttpRequestUtil.sendPost( setIndustryUrl.replace("ACCESS_TOKEN",WcChatTokenUtils.getAccessToken()),param, WcChatTokenUtils.charset);
+        JSONObject jsonObject=new JSONObject(result);
+        if (null!=jsonObject&&jsonObject.get("errcode").equals(0)){
+            return "设置成功";
+        }else {
+            return jsonObject.getString("errmsg");
+        }
+    }
+
+    /**
+     * @description: 发送模板消息
+     * @author: chenyj 2019/7/24
+     * @param param
+     * @return
+     */
+    public static String sendMessage(String param){
+        String result=HttpRequestUtil.sendPost(sendMessage.replace("ACCESS_TOKEN",WcChatTokenUtils.getAccessToken()), param ,WcChatTokenUtils.charset);
+        JSONObject jsonObject=new JSONObject(result);
+        if (null!=jsonObject&&jsonObject.get("errcode").equals(0)){
+            return "发送成功";
         }else {
             return jsonObject.getString("errmsg");
         }

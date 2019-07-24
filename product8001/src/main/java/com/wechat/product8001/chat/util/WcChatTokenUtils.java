@@ -36,6 +36,7 @@ public class WcChatTokenUtils {
     //上次获取token时间
     private static long lastTime;
 
+
     /**
      * @description: 获取微信token
      * @author: chenyj 2019/7/24
