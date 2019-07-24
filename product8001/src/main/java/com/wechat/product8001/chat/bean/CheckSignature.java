@@ -11,7 +11,7 @@ import java.util.Collections;
 
 /**
  * @Author chenyj
- * @Description
+ * @Description 验证是否可以接入微信
  * @Date create by 2019/7/23 20:44
  * 陈银杰专属测试
  */
@@ -32,7 +32,8 @@ public class CheckSignature {
      * 1）将token、timestamp、nonce三个参数进行字典序排序
      * 2）将三个参数字符串拼接成一个字符串进行sha1加密
      * 3）开发者获得加密后的字符串可与signature对比，标识该请求来源于微信
-     *
+     * @description:
+     * @author: chenyj 2019/7/24
      */
     public boolean check(){
         String[] strs=new String[]{token,timestamp,nonce};
@@ -43,7 +44,8 @@ public class CheckSignature {
     }
 
     /**
-     * 验证加密算法
+     * @description: 验证加密算法
+     * @author: chenyj 2019/7/24
      * @param str
      * @return
      */

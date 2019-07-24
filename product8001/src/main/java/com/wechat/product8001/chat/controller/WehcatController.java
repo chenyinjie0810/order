@@ -1,0 +1,98 @@
+package com.wechat.product8001.chat.controller;
+
+import com.wechat.product8001.chat.bean.*;
+import com.wechat.product8001.chat.util.WcChatTokenUtils;
+import com.wechat.product8001.chat.util.WeChatUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Map;
+
+/**
+ * @Author chenyj
+ * @Description
+ * @Date create by 2019/7/23 20:21
+ * 陈银杰专属测试
+ */
+@RestController
+@RequestMapping("/weChat/")
+@Slf4j
+public class WehcatController {
+
+
+    /**
+     * signature	微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。
+     * timestamp	时间戳
+     * nonce	随机数
+     * echostr	随机字符串
+     * @return
+     */
+    @GetMapping("get")
+    public String get(CheckSignature checkSignature){
+        log.info("验证链接是否通过");
+        if (checkSignature.check()){
+            return checkSignature.getEchostr();
+        }else {
+            return null;
+        }
+    }
+
+    /**
+     * @description: 接受用户发送消息
+     * @author: chenyj 2019/7/24
+     * @return
+     */
+    @PostMapping("get")
+    public String post(HttpServletRequest request){
+        log.info("接受用户消息");
+        try {
+            Map<String,String> map= WeChatUtils.parseRequest(request.getInputStream());
+            log.info(map.toString());
+            return WeChatUtils.replyText(map,"林深时见鹿，梦醒时见你");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
+     * @description: 获取token测试
+     * @author: chenyj 2019/7/24
+     * @return
+     */
+    @GetMapping("getToken")
+    public String getToken(){
+        return WcChatTokenUtils.getAccessToken();
+    }
+
+
+    /**
+     * @description: 修改自定义菜单
+     * @author: chenyj 2019/7/24
+     * @return
+     */
+    @GetMapping("customButton")
+    public String customButton(){
+        WeChatButton weChatButton=new WeChatButton();
+        weChatButton.getButton().add(new ClickButton("林深时见鹿","1"));
+        weChatButton.getButton().add(new ViewButton("海蓝时见鲸","https://www.baidu.com/"));
+        Subbutton subbutton=new Subbutton("梦醒时见你");
+        subbutton.getSub_button().add(new ClickButton("鹿踏雾而来","2"));
+        subbutton.getSub_button().add(new ViewButton("鲸随浪而涌","https://weibo.com"));
+        subbutton.getSub_button().add(new ClickButton("你没回头","3"));
+        subbutton.getSub_button().add(new PhotoOrAlbumButton("又怎知我不在","4"));
+        weChatButton.getButton().add(subbutton);
+        JSONObject jsonObject=new JSONObject(weChatButton);
+        return WeChatUtils.customButton(jsonObject.toString());
+    }
+
+
+
+}

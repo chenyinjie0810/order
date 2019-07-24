@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8001
 
 spring:
   application:
@@ -9,9 +9,9 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
   datasource:
-    url: jdbc:mysql://localhost:3306/wechat?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://172.168.251.14:3306/zfsoft_construction_project_approval_client?useSSL=false&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: cyj7416146
+    password: root
     driver-class-name: com.mysql.jdbc.Driver
 
 
