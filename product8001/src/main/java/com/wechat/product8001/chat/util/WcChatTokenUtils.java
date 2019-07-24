@@ -24,11 +24,11 @@ public class WcChatTokenUtils {
     /**
      * 微信秘钥
      */
-    private static final String appid="wx331dd9a536612860";
+    public static final String appid="wx331dd9a536612860";
     /**
      * 微信密码
      */
-    private static final String appsecret="2c57cc49db039757bf1206adefa13be3";
+    public static final String appsecret="2c57cc49db039757bf1206adefa13be3";
     
     public static final String charset="UTF-8";
     //获取微信tokenURL，get请求

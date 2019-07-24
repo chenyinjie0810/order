@@ -5,6 +5,7 @@ import com.wechat.product8001.chat.util.WcChatTokenUtils;
 import com.wechat.product8001.chat.util.WeChatUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
+import org.junit.Test;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -53,8 +56,22 @@ public class WehcatController {
         log.info("接受用户消息");
         try {
             Map<String,String> map= WeChatUtils.parseRequest(request.getInputStream());
-            log.info(map.toString());
-            return WeChatUtils.replyText(map,"林深时见鹿，梦醒时见你");
+            String content=map.get("Content");
+            StringBuffer replContent=new StringBuffer();
+            switch (content){
+                case "登录":
+                    String url="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WcChatTokenUtils.appid+"&redirect_uri="+URLEncoder.encode("http://5rbit2.natappfree.cc/weChat/getUserInfo","UTF-8")+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
+                    replContent.append("点击<a href=\""+url+"\">这里</a>登录");
+                    break;
+                case "测试":
+                    replContent.append("");
+                    break;
+                default:
+                    replContent.append("林深时见鹿，梦醒时见你");
+                    break;
+            }
+
+            return WeChatUtils.replyText(map,replContent.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -145,7 +162,10 @@ public class WehcatController {
         return WeChatUtils.sendMessage(param);
     }
 
-
+    @GetMapping("getUserInfo")
+    public String get(){
+        return "1111";
+    }
 
 
 }
