@@ -5,7 +5,6 @@ import com.wechat.product8001.chat.util.WcChatTokenUtils;
 import com.wechat.product8001.chat.util.WeChatUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
-import org.junit.Test;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
@@ -128,7 +126,9 @@ public class WehcatController {
     }
 
     /**
-     * 发送消息
+     * @desc: 发送消息
+     * @author: chenyj
+     * @date: 2019/7/25
      * @return
      */
     @GetMapping("sendMessage")
@@ -163,6 +163,14 @@ public class WehcatController {
         return WeChatUtils.sendMessage(param);
     }
 
+    /**
+     * @desc: 获取用户的openid
+     * @author: chenyj
+     * @date: 2019/7/25
+     * @param code
+     * @param STATE
+     * @return
+     */
     @GetMapping("getUserInfo")
     public String get(String code,String STATE){
 
