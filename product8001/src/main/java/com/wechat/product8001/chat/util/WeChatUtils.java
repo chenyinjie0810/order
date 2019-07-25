@@ -5,6 +5,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.json.JSONObject;
+import org.springframework.util.StringUtils;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -33,6 +34,11 @@ public class WeChatUtils {
      * 发送模板消息
      */
     private static final String sendMessage="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
+
+    /**
+     * 通过code换取网页授权access_token的url
+     */
+    private static final String getCodeUrl="https://api.weixin.qq.com/sns/oauth2/access_token";
     /**
      * @desc: 对普通信息进行处理
      * @author: chenyj
@@ -64,7 +70,8 @@ public class WeChatUtils {
      * @return
      */
     public static String replyText(Map<String,String> map, String data){
-        String result="<xml>\n" +
+        String result=
+                "<xml>\n" +
                 "<ToUserName><![CDATA["+map.get("FromUserName")+"]]></ToUserName>\n" +
                 "<FromUserName><![CDATA["+map.get("ToUserName")+"]]></FromUserName>\n" +
                 "<CreateTime>"+System.currentTimeMillis()/1000 +"</CreateTime>\n" +
@@ -120,5 +127,32 @@ public class WeChatUtils {
         }else {
             return jsonObject.getString("errmsg");
         }
+    }
+
+    /**
+     * @desc: 网页授权获取用户 openid
+     * @author: chenyj
+     * @date: 2019/7/25
+     * @param code
+     */
+    public static String getAccessToken(String code) {
+        try {
+            Map<String, Object> map=new HashMap<>();
+            map.put("appid",WcChatTokenUtils.appid);
+            map.put("secret",WcChatTokenUtils.appsecret);
+            map.put("code",code);
+            map.put("grant_type","authorization_code");
+            String result=HttpRequestUtil.sendGet(getCodeUrl,map,WcChatTokenUtils.charset);
+            JSONObject jsonObject=new JSONObject(result);
+            String openid=jsonObject.getString("openid");
+            if (openid.isEmpty()){
+                return result;
+            }else {
+                return openid;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

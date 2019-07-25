@@ -53,14 +53,14 @@ public class WehcatController {
      */
     @PostMapping("get")
     public String post(HttpServletRequest request){
-        log.info("接受用户消息");
         try {
             Map<String,String> map= WeChatUtils.parseRequest(request.getInputStream());
+            log.info("接受用户消息内容："+map);
             String content=map.get("Content");
             StringBuffer replContent=new StringBuffer();
             switch (content){
                 case "登录":
-                    String url="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WcChatTokenUtils.appid+"&redirect_uri="+URLEncoder.encode("http://5rbit2.natappfree.cc/weChat/getUserInfo","UTF-8")+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
+                    String url="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WcChatTokenUtils.appid+"&redirect_uri="+URLEncoder.encode("http://8pbdg5.natappfree.cc/weChat/getUserInfo","UTF-8")+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
                     replContent.append("点击<a href=\""+url+"\">这里</a>登录");
                     break;
                 case "测试":
@@ -70,8 +70,9 @@ public class WehcatController {
                     replContent.append("林深时见鹿，梦醒时见你");
                     break;
             }
-
-            return WeChatUtils.replyText(map,replContent.toString());
+            String result=WeChatUtils.replyText(map,replContent.toString());
+            log.info("接受用户消息内容："+result);
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,8 +164,9 @@ public class WehcatController {
     }
 
     @GetMapping("getUserInfo")
-    public String get(){
-        return "1111";
+    public String get(String code,String STATE){
+
+        return WeChatUtils.getAccessToken(code);
     }
 
 
