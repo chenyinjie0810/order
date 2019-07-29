@@ -2,6 +2,7 @@ package com.wechat.product8001.product.repository;
 
 import com.wechat.product8001.product.entity.ProductInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

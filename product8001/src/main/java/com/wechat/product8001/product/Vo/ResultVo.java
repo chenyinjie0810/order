@@ -1,6 +1,7 @@
 package com.wechat.product8001.product.Vo;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @Author chenyj
@@ -9,6 +10,7 @@ import lombok.Data;
  * 陈银杰专属测试
  */
 @Data
+@ToString
 public class ResultVo<T> {
 
     private Integer code;
