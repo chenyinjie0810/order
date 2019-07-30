@@ -22,6 +22,7 @@
         <module>eureka8761</module>
         <module>eureka8762</module>
         <module>product8001</module>
+        <module>order8002</module>
     </modules>
 
     <properties>

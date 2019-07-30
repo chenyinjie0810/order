@@ -1,0 +1,54 @@
+spring:
+  profiles:
+    active:
+      - test
+---
+#测试环境
+spring:
+  profiles: test
+  application:
+    name: product8002
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/wechat?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: cyj7416146
+    driver-class-name: com.mysql.jdbc.Driver
+
+server:
+  port: 8002
+
+eureka:
+  instance:
+    instance-id: product8002
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+---
+#正式环境
+spring:
+  profiles: dev
+  application:
+    name: product8002
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mysql://172.168.251.14:3306/zfsoft_construction_project_approval_client?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+server:
+  port: 8002
+
+eureka:
+  instance:
+    instance-id: product8002
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
