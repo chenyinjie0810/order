@@ -36,16 +36,21 @@ public class ProductInfoController {
 
     @Autowired
     private ProductCategoryService productCategoryService;
-    
-    
+
+    /**
+     * @desc:
+     * @author: chenyj
+     * @date: 2019/8/29
+     * @return
+     */
     @GetMapping(value = "/list")
     public ResultVo list(){
+
         List<ProductInfo> list=productService.findByCategoryType(CategoryType.up.getCode());
         List<Integer> collect = list.stream()
                 .map(ProductInfo::getCategoryType)
                 .collect(Collectors.toList());
         List<ProductCategory> productCategoryList = productCategoryService.findByCategoryTypeIn(collect);
-
         List<ProductVO> productVOList=new ArrayList<>();
         for (ProductCategory productCategory:productCategoryList){
             ProductVO productVO=new ProductVO();

@@ -62,7 +62,7 @@ public class WehcatController {
                     replContent.append("点击<a href=\""+url+"\">这里</a>登录");
                     break;
                 case "测试":
-                    replContent.append("");
+                    replContent.append("你好，欢迎首次关注");
                     break;
                 default:
                     replContent.append("林深时见鹿，梦醒时见你");
