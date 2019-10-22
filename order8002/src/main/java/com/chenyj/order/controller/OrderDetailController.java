@@ -4,6 +4,7 @@ import com.chenyj.order.entity.OrderDetail;
 import com.chenyj.order.service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,14 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
  * 陈银杰专属测试
  */
 @RestController
+@RequestMapping("/order")
 public class OrderDetailController {
 
     @Autowired
     private OrderDetailService orderDetailService;
 
-    @GetMapping(value = "/get")
-    public OrderDetail get(){
-        return null;
+    @GetMapping(value = "/")
+    public String get(){
+        return "我是消费者";
     }
 
 }

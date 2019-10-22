@@ -37,6 +37,11 @@ public class ProductInfoController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
+    @GetMapping("/")
+    public String index(){
+        return "我是生产者";
+    }
+
     /**
      * @desc:
      * @author: chenyj
